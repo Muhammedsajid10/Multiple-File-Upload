@@ -2,7 +2,7 @@ const FileModel = require('../models/fileModel');
 
 const uploadFiles = async (req, res) => {
   try {
-    const userId = req.user.userId;
+    const userId = req.user._id;
     const files = req.files.map(file => ({
       userId,
       filename: file.originalname,
@@ -10,6 +10,8 @@ const uploadFiles = async (req, res) => {
       fileSize: file.size,
       filePath: file.path,
     }));
+    console.log('User in uploadFiles:', req.user._id);
+    console.log("hhhh: ",files);
     const uploadedFiles = await FileModel.create(files);
     res.json({ files: uploadedFiles });
   } catch (error) {
@@ -21,7 +23,7 @@ const uploadFiles = async (req, res) => {
 // Fetch all files for a specific user
 const getFiles = async (req, res) => {
   try {
-    const userId = req.user.userId;
+    const userId = req.user._id;
     const files = await FileModel.find({ userId });
     res.json({ files });
   } catch (error) {
@@ -32,7 +34,7 @@ const getFiles = async (req, res) => {
 
 const deleteFile = async (req, res) => {
   try {
-    const userId = req.user.userId;
+    const userId = req.user._id;
     const fileId = req.params.fileId;
 
     // before deleting ,check the specific file is there

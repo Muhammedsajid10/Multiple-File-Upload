@@ -9,6 +9,7 @@ const authenticateToken = async (req, res, next) => {
     console.log('Decoded Data in authRequire:', decode);
 
     req.user = decode;
+    console.log('User in authenticateToken:', req.user);
     next();
   } catch (err) {
     res.status(403).send('Invalid token');
