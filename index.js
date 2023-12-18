@@ -3,6 +3,7 @@ const connection = require("./mongoDb/mongoose");
 const userRouter = require("./router/userRouter");
 const fileRouter = require('./router/fileRouter')
 const express = require("express");
+const multer = require("multer");
 const app = express();
 
 
@@ -17,7 +18,8 @@ app.use((req, res, next) => {
     res.status(404).json("Page not found")
 })
 
-const port = process.env.port || 6000
+
+const port = process.env.port || 7000
 app.listen(port, () => {
     console.log(`Server's running on port ${port}`);
 })

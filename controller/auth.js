@@ -19,8 +19,9 @@ const register = async (req, res) => {
             password: passwordHash,
 
         });
+        const token = jwt.sign({ username: userDetails.username, _id: userDetails._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-        res.json(userDetails);
+        res.json({user : userDetails, token : token});
     } catch (error) {
         console.error("Error in createUser:", error);
         res.status(500).json({ error: "An error occurred while creating the user." });

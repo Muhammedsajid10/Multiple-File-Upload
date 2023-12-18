@@ -3,9 +3,11 @@ const upload = require('../controller/multerConfig');
 const authenticateToken = require('../middleware/protect');
 const { uploadFiles, getFiles, deleteFile } = require('../controller/fileController');
 
+
 const router = express.Router();
 
 const middleware = [authenticateToken];
+
 
 
 router.route('/uploads').post(middleware, upload.array('files'), uploadFiles);
